@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post - {{ post.id }}</title>
+</head>
+<body>
+{% if post.isBoast %}
+    🍻
+{% else %}
+    🔥
+{% endif %}
+<a href="{% url 'postDetails' post.id %}">{{ post.content }}</a>
+<button ><a href="{% url 'upVote' post.id %}">⬆ {{ post.upVotes }}</a></button>
+<button><a href="{% url 'downVote' post.id %}">⬇ {{ post.downVotes }}</a></button>
+<p>Date Posted: {{ post.dateSubmitted }}</p>
+<br>
+<br>
+<form method="post" action="{% url "postDetails" post.id %}">
+    {% csrf_token %}
+    {{form}}
+    <label for="sub"> Delete </label>
+    <input type="submit" name="sub" id="sub">
+</form>
+
+</body>
+</html>

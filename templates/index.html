@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ghost Post Homepage</title>
+</head>
+<body>
+
+<button><a href="{% url 'createPost' %}">New Boast</a> </button>
+<br>
+<button><a href="{% url 'index'  %}?sort=-upVotes" >Sort By Up votes</a></button>
+<button><a href="{% url 'index' %}?sort=-downVotes" >Sort By Down votes</a></button>
+<br>
+<br>
+<button><a href="{% url 'index' %}" >All Posts</a></button>
+<button><a href="{% url 'index' %}?isBoast=True" >Only Boasts</a></button>
+<button><a href="{% url 'index' %}?isBoast=False" >Only Roasts</a></button>
+<br>
+{% if latest_posts %}
+    <ul>
+    {% for post in latest_posts %}
+        <li>
+            {% if post.isBoast %}
+                🍻
+            {% else %}
+                🔥
+            {% endif %}
+            <a href="{% url 'postDetails' post.id %}">{{ post.content }}</a>
+            <button ><a href="{% url 'upVote' post.id %}">⬆ {{ post.upVotes }}</a></button>
+            <button><a href="{% url 'downVote' post.id %}">⬇ {{ post.downVotes }}</a></button>
+            <p>Date Posted: {{ post.dateSubmitted }}</p>
+        </li>
+    {% endfor %}
+    </ul>
+
+{% else %}
+    <p>There are currently no posts</p>
+{% endif %}
+
+
+</body>
+</html>

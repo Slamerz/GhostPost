@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create a Post</title>
+</head>
+<body>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'createPost' %}" method="post">
+    {% csrf_token %}
+    {{form}}
+    <input type="submit">
+</form>
+
+
+</body>
+</html>
